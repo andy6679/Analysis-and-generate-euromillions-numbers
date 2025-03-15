@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -103,11 +103,39 @@
             }
         }
     </style>
+    <script>
+        // Restrict access script
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("token");
+            const storedToken = sessionStorage.getItem("authToken");
+
+            if (!token || token !== storedToken) {
+                alert("Access Denied! Redirecting to the main site.");
+                window.location.href = "https://www.hotpicksuk.com"; // Redirect back
+            }
+        };
+
+        // Function to handle tab switching
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
 </head>
 <body>
     <header>
-        <h1>Euomillions number analysis and generate numbers</h1>
-        Download Euromillions results from the national lotteryincsv format and upload
+        <h1>Euromillions Number Analysis and Generate Numbers</h1>
+        Download Euromillions results from the national lottery in CSV format and upload
     </header>
 
     <div class="tabs">
@@ -117,6 +145,9 @@
         <button class="tablink" onclick="openTab(event, 'probabilityTab')">Probability</button>
         <button class="tablink" onclick="openTab(event, 'filtersTab')">Combinations</button>
     </div>
+</body>
+</html>
+
 
     <div id="uploadTab" class="tabcontent" style="display: block;">
         <h2>Upload CSV</h2>
